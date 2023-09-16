@@ -1,0 +1,110 @@
+public class Customer{
+    
+    private Bond bond;
+    private MutualFund mutualFund;
+    private double totalCash;
+
+
+    public Customer(Bond bond, MutualFund mutualFund, String firstName, String lastName, double totalCash){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.totalCash = totalCash;
+        this.bond = bond;
+        this.mutualFund = mutualFund;
+    }
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    public String getLastName(){
+        return lastName;
+    }
+    
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public double getTotalCash(){
+        return totalCash;
+    }
+
+    public void setTotalCash(double totalCash){
+        this.totalCash = totalCash;
+    }
+
+    public Bond getBond(){
+        return bond;
+    }
+
+    public void setBond(Bond bond){
+        this.bond = bond;
+    }
+
+    public MutualFund getMutualFund(){
+        return mutualFund;
+    }
+
+    public void setMutualFund(MutualFund mutualFund){
+        this.mutualFund = mutualFund;
+    }
+
+    public double currentValue(){
+        return (bond.getCurrentPrice * bond.getNumberOfBondsOwned()) + (mutualFund.getNumberShares() * mutualFund.getCurrentPrice());
+
+    }
+
+    public double getCapitalGains(){
+        if(bond.getCapitalGains() > 0 && mutualFund.getCapitalGains() > 0)
+            return bond.getCapitalGains() + mutualFund.getCapitalGains();
+        else if(bond.getCapitalGains() > 0 && mutualFund.getCapitalGains() < 0)
+            return bond.getCapitalGains();
+        else if(mutualFund.getCapitalGains() > 0 && bond.getCapitalGains() < 0 )
+            return mutualFund.getCapitalGains();
+        else
+            return 0;
+
+    }
+    public void sellBond(){
+        bond.sellBond();
+        totalCash += bond.getCurrentPrice();
+
+    }
+
+    public boolean buyBond(){
+        if(bond.getCurrentPrice() > totalCash)
+            return false;
+        else{
+            bond.buyBond();
+            totalCash -= bond.getCurrentPrice();
+            return true;
+        }
+
+    }
+
+    public void withdrawMutualFund(double withdrawAmount){
+        mutualFund.sell(withdrawAmount);
+        totalCash += mutualFund.getCurrentPrice();
+
+    }
+
+    public boolean buyMutualFund(double buyAmount){
+        if(buyAmount > totalCash)
+            return false;
+        else{
+            mutualFund.buy(buyAmount);
+            totalCash -= buyAmount;
+            return true;
+        }
+
+    }
+
+
+
+
+
+}

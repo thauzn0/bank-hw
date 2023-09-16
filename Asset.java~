@@ -1,0 +1,58 @@
+/**
+* This is a Asset class that contains of assets
+* @Author: Taha uzun
+*/
+public class Asset {
+    private String assetName;
+    private String assetDescription;
+    private double costBasis;
+    private double currentPrice;
+    private double capitalGains;
+    private int numberOwned;
+    
+    public Asset(String assetName, double costBasis) {
+        this.assetName = assetName;
+        this.costBasis = costBasis;
+        this.capitalGains = 0.0;
+
+    }
+
+public String getName(String assetName){
+    return assetName;
+
+}
+
+public void setName(){
+    this.assetName = assetName;
+
+}
+
+public String getDescription(String assetDescription){
+    return assetDescription;
+}
+
+public void setDescription(String assetDescription){
+    this.assetDescription = assetDescription;
+}
+
+public double getCostBasis(){
+    return costBasis;
+}
+
+public void setCostBasis(double costBasis){
+    this.costBasis = costBasis;
+}
+public double getCurrentPrice(){
+    return currentPrice;
+}
+public void setCurrentPrice(double currentPrice){
+    this.currentPrice = currentPrice;
+}
+public double getCapitalGains(){
+    return capitalGains;
+}
+public void setCapitalGains(double capitalGains){
+    this.capitalGains = capitalGains;
+}
+
+}

@@ -1,0 +1,40 @@
+public class MutualFund extends Equity {
+    private int numberOwned;
+    private double load;
+
+    public MutualFund(String name, double price, char symbol) {
+        super(name, price);
+        this.symbol = symbol;
+        this.numberOwned = 0;
+    }
+    
+    public double getLoad() {
+        return load;
+    }
+
+    public void setLoad(double load) {
+        this.load = load;
+    }
+
+    public double buy(double amount) {
+        if(amount < 0)
+          return 0;
+        setNumberShares(getNumberShares() + amount * (%100 - getLoad())/ getCurrentPrice());
+      
+      
+        setCostBasis(getCostBasis() + getCurrentPrice());
+        setNumberOwned(getNumberOwned() + 1);
+        return getCurrentPrice();
+    }
+    
+    public double sell(double amount) {
+        if (amount <= 0 ||  amount >  (getCurrentPrice() * getCostBasis())) {
+            return 0;
+        }
+        
+        setCostBasis(getCostBasis() - (getCostBasis() / getNumberOwned()));
+        setCapitalGains(getCurrentPrice() - getCostBasis());
+        setNumberOwned(getNumberOwned() - 1);
+        return getCurrentPrice();
+    }
+}

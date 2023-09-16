@@ -1,0 +1,54 @@
+public class Bond extends Asset {
+  private String nameOfBond;
+  private double interestRate;
+  private int numberOfBondsOwned;
+  private double principal;
+  
+  public Bond(String nameOfBond, double principal, double interestRate) {
+    super(nameOfBond, 0.0);
+    this.numberOfBondsOwned = 0;
+    this.interestRate = interestRate;
+    setCurrentPrice(principal);
+    this.nameOfBond = nameOfBond;
+  }
+  
+  public double getPrincipal() {
+    return principal;
+  }
+  
+  public int getNumberOfBondsOwned() {
+    return numberOfBondsOwned;
+  }
+  
+  public void setNumberOfBondsOwned(int numberOfBondsOwned) {
+    this.numberOfBondsOwned = numberOfBondsOwned;
+  }
+  
+  public double getInterestRate() {
+    return interestRate;
+  }
+  
+  public void setInterestRate(double interestRate) {
+    this.interestRate = interestRate;
+  }
+
+  public double payInterest() {
+    return interestRate * principal;
+  }
+  
+  public double buyBond() {
+    setCostBasis(getCostBasis() + getCurrentPrice());
+    setNumberOfBondsOwned(getNumberOfBondsOwned() + 1);
+    return getCurrentPrice();
+  }
+  
+  public double sellBond() {
+    if (getNumberOfBondsOwned() == 0)
+      return 0;
+    
+    setCostBasis(getCostBasis() - (getCostBasis() / getNumberOfBondsOwned()));
+    setCapitalGains((getCurrentPrice() - (getCostBasis() / getNumberOfBondsOwned())) * getNumberOfBondsOwned());
+    setNumberOfBondsOwned(getNumberOfBondsOwned() - 1);
+    return getCurrentPrice();
+  }
+}
